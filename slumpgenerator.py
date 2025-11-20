@@ -7,10 +7,10 @@ class Slumpande:
         self.översättningslista_fulltsänkt=[]
         self.temporärlista=[]
     def antal(self):
-        antal=random.randrange(1,5)
+        antal=random.randrange(1,5) # 1-4 skepp
         return antal
     def längd(self):
-        längd=random.randrange(0,5)
+        längd=random.randrange(0,5) # 0-4 längd
         return längd
     def orgentering(self):
         """Om orgentering ger 1 blir skeppet lodrätt om orgentering blir 2 blir skeppet vågrätt"""
@@ -28,10 +28,10 @@ class Slumpande:
             if tiotal<1 or tiotal>8 or ental<1 or ental>8:
                 return False
         return True
-    def granskning_närhet(self):        
-        for tal in self.temporärlista:            
+    def granskning_närhet(self):
+        for tal in self.temporärlista:
             närliggande={tal+1, tal-1, tal+10, tal-10, tal-11, tal+11, tal-9, tal+9}
-            
+
             if any(x in self.översättningslista for x in närliggande):
                 return False
         return True
@@ -53,7 +53,7 @@ class Slumpande:
                 bokstav=chr(ord("A") + tiotal-1)
                 färdig_koordinat=f"{bokstav}{ental}"
                 self.skicka_lista.append(färdig_koordinat)
-            
+
     def slumpgenerator(self):
         antal=self.antal()
         for _ in range(antal):
@@ -68,7 +68,7 @@ class Slumpande:
                 elif orgentering=="vågrätt":
                     for i in range(1, längd+1):
                         self.temporärlista.append(start_koordinad + i*10)
-                else: 
+                else:
                     continue
                 granskning=self.granskning_inom_bräde()
                 if granskning==True:
@@ -87,6 +87,6 @@ class Slumpande:
                     continue
                 else:
                     continue
-        self.översättning(self.översättningslista_fulltsänkt, extra=True)        
+        self.översättning(self.översättningslista_fulltsänkt, extra=True)
         self.översättning(self.översättningslista)
         return self.skicka_lista, self.skicka_lista_fullsänkt
