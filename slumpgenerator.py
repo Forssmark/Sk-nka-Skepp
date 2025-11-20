@@ -1,4 +1,8 @@
 import random
+
+LODRÄTT = "lodrätt"
+VÅGRÄTT = "vågrätt"
+
 class Slumpande:
     def __init__(self):
         self.skicka_lista=[]
@@ -15,8 +19,8 @@ class Slumpande:
     def orgentering(self):
         """Om orgentering ger 1 blir skeppet lodrätt om orgentering blir 2 blir skeppet vågrätt"""
         riktning=random.randrange(1,3)
-        if riktning==1: return "lodrätt"
-        else: return "vågrätt"
+        if riktning==1: return LODRÄTT
+        else: return VÅGRÄTT
     def slump_koordinat(self):
         bokstav=random.randrange(1,9)
         siffra=random.randrange(1,9)
@@ -58,30 +62,38 @@ class Slumpande:
         antal=self.antal()
         for _ in range(antal):
             while True:
+
                 längd=self.längd()
                 start_koordinad=self.slump_koordinat()
                 self.temporärlista.append(start_koordinad)
                 orgentering=self.orgentering()
-                if orgentering=="lodrätt":
+
+                if orgentering==LODRÄTT:
                     for i in range(1, längd+1):
                         self.temporärlista.append(start_koordinad + i)
-                elif orgentering=="vågrätt":
+                elif orgentering==VÅGRÄTT:
                     for i in range(1, längd+1):
                         self.temporärlista.append(start_koordinad + i*10)
                 else:
                     continue
+
                 granskning=self.granskning_inom_bräde()
+
                 if granskning==True:
+
                     if any(x in self.temporärlista for x in self.översättningslista):
                         self.temporärlista.clear()
                         continue
+
                     if not self.granskning_närhet():
                         self.temporärlista.clear()
                         continue
+
                     self.översättningslista_fulltsänkt.append(self.temporärlista.copy())
                     self.översättningslista.extend(self.temporärlista)
                     self.temporärlista.clear()
                     break
+
                 elif granskning==False:
                     self.temporärlista.clear()
                     continue
