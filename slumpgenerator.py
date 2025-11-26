@@ -1,5 +1,20 @@
 import random
 class Slumpande:
+    """Hanterar brädet för spelet.
+        Attribut:
+        -spelplan (lista): Innehåller koordinater för skeppen.
+        -spelplan_fullsänkt (lista): Innehåller en lista med skepp där varje skepp är en lista av koordinater
+        -sänkta_fartyg (lista): Träffade koordinater
+        -missade_fartyg (lista): Tidigare skjutna och missade koordinater 
+        -highscore_länkning: Objekt som hanterar träffprocenten
+        
+        
+        Metoder:
+        -kontroll: Tar in och validerar angivna koordinater
+        -skjuta: Utför ett skott och uppdatera spelplanens listor
+        -rita_bräde: Skriver ut spelplanen
+        -fullsänkt: Kontrollerar när användaren sänkt ett helt skepp och markerar runt om 
+    """
     def __init__(self):
         self.skicka_lista=[]
         self.skicka_lista_fullsänkt=[]
@@ -45,7 +60,7 @@ class Slumpande:
                     bokstav=chr(ord("A") + tiotal-1)
                     färdig_koordinat=f"{bokstav}{ental}"
                     temp_för_lista_i_lista.append(färdig_koordinat)
-                    self.skicka_lista_fullsänkt.append(temp_för_lista_i_lista)
+                self.skicka_lista_fullsänkt.append(temp_för_lista_i_lista)
         else:
             for tal in lista:
                 tiotal=tal // 10
@@ -53,7 +68,6 @@ class Slumpande:
                 bokstav=chr(ord("A") + tiotal-1)
                 färdig_koordinat=f"{bokstav}{ental}"
                 self.skicka_lista.append(färdig_koordinat)
-            
     def slumpgenerator(self):
         antal=self.antal()
         for _ in range(antal):
